@@ -1,0 +1,29 @@
+################################################################################################
+#
+# The aim of the project is to filter out FASTQ reads which have less than 30 base fragment  
+# of the sequence of interest (the reminder of a read is a fragment of the vector sequence). 
+#
+################################################################################################ 
+#
+# The vector is cirular, encompassing the te sequence of interest from both ends. We arbitrarly 
+# define the ends as LEFT and RIGHT. The following ends of the vector are not 'real', 
+# for the real-world use they are
+# to be replaced by the sequence consisting of the e.g. HindIII site plus n bases of the vector 
+# adding up to e.g. 50 bases.
+# LEFT: 	GGGAGGCCG 
+# RIGHT: 	CCTCCCATA
+# TODO: method to be extended to accommodate LEFT_RC:CGGCCTCCC and RIGHT_RC: 	TATGGGAGG
+#
+################################################################################################
+#
+# INPUT: a FASTQ reads file (assuming single-end reads, but can be easily extended to paired-end) 
+# OUTPUT: a FASTQ reads file, withthout the reads containing < 30 bases of sequence of interest
+#
+##################################################################################################
+#
+# USAGE: call make input_filename_fastq
+#
+##################################################################################################
+
+    
+
