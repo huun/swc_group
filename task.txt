@@ -1,0 +1,41 @@
+Task
+
+Given two input files:
+    - One-line 12 column tab delimited (FASTQ content)
+    - File containing the output from tre-agrep --show-position. 
+        The position of a matched substring is given at the begining of each line.
+
+There are 4 possible 50-base matched strings (MS) with 1-fuzzyness. Depending on which of the strings have been located by tre-agrep, we can say whether sequence of interest (SI) is to the right or to the left of the matched string and whether it is in rev_comp.
+
+Left: 	GGGAGGCCG
+Left_RC:CGGCCTCCC
+ 
+Right: 		CCTCCCATA
+Right_RC: 	TATGGGAGG
+
+# TODO 
+
+Implement:
+    - Method to decide whether to discard or keep a read based on 
+        - the position of MS 
+        - the orientation of MS
+        - how many bases of SI are there in the recod (read) 
+
+Testing:
+    - Check if methods correctly identify the position of the matched string in the input
+    - Check if methods correctly identify L/R, RC or not
+
+Documentation:
+    - Docstrings: '''On first line of every method
+                    :param a: First variable
+                    :return:  Returns something
+                    '''
+
+Version control:
+    - Each implemented stage to be added to github
+
+    -sphinx to generate html
+     call sphinx-apidoc  src/ -o -....???? changes to conf file? index.rst
+     make html
+    
+
