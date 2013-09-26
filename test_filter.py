@@ -1,36 +1,26 @@
 #!/usr/bin/env python
 
-import filter_reads.py
-
-filter_one_line("")
-
-#def dna_starts_with(dna, prefix) :
-#    if dna.startswith(prefix) :
-#        return True
-#    return False
-
-#print dna_starts_with('actgggt', 'act')
-#print dna_starts_with('actgggt', 'agt')
-
-#assert dna_starts_with('a', 'a')
-#assert dna_starts_with('at', 'a')
-#assert dna_starts_with('at', 'at')
-#assert not dna_starts_with('at', 't')
+from filter_reads import filter_one_line
 
 
-#Tests = [
-#	['a',	'a',	True],
-#    ['at',	'at',	True],
-#    ['at',	'at',	True],
-#    ['at',	't',	False],
-#	['at',	't',	True]
-#]
+Tests = [
+	['8-38:@SRR073560.13773 HWI-EAS406:7:1:665:418 length=152	GGAAATGCCATGATAGGTAGGTATGGTGGCTGGTTTGAGGGAGGCCTATGGTGGGGGGGTGGT',	True, '@SRR073560.13773 HWI-EAS406:7:1:665:418 length=152	GGAAATGCCATGATAGGTAGGTATGGTGGCTGGTTTGAGGGAGGCCTATGGTGGGGGGGTGGT'],
+    ['189-198:@SRR073560.13773 HWI-EAS406:7:1:665:418 length=152	GGAAATGCCATGATAGGTAGGTATGGTGGCTGGTTTGAGGGAGGCCTATGGTGGGGGGGTGGT',	True, ''],
+    ['0-10:@SRR073560	ATGATGTGGTGAAATTTAGAG',	True, ''],
+    ['100-130:@SRR073560	ATGATGTGGTGAAATTTAGAG',	False, '@SRR073560	ATGATGTGGTGAAATTTAGAG'],
+#    ['',	False, ''],
+#    ['',	False, ''],
+#	['',	False, '']
+]
 
-#passes = 0
-#for (i, (seq, prefix, expected)) in enumerate(Tests) :
-#	if dna_starts_with(seq,prefix) == expected :
-#		passes += 1
-#	else:
-#		print('test %d failed'% i)
-#print('%d of %d passed' % (passes, len(Tests)))
+passes = 0
+for (i, (seq, prefix, expected)) in enumerate(Tests) :
+	if filter_one_line(seq,prefix) == expected :
+		passes += 1
+	else:
+		print('test %d failed'% i)
+print('%d of %d passed' % (passes, len(Tests)))
+
+
+
 

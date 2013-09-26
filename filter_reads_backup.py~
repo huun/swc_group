@@ -9,7 +9,7 @@ import sys
 		#if number of bases to the left(right) of the coordinates is more than $THRESHOLD
 			#print line (coordinates stripped out!)
 
-
+  
 def filtering(input_file) :
     '''Function takes a modified fastq file (each record on one line, line prepended with the coordinates of a sequence matched by tre-agrep). 
     If input file name contains "_left" only reads with at least 30 bases to the right of the matched position are printed to stdout

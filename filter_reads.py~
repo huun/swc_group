@@ -9,8 +9,8 @@ import sys
 		#if number of bases to the left(right) of the coordinates is more than $THRESHOLD
 			#print line (coordinates stripped out!)
 
-
-def filter_one_line(line) :
+  
+def filter_one_line(line, left) :
     coord,id_seq = line.split(':', 1)
     splits = id_seq.split('\t')
     idd=splits[0]
@@ -42,11 +42,11 @@ def filtering(input_file) :
     line = reader.readline();
     left=input_file.__contains__('_left.')
     while line != '' :
-        print filter_one_line(line)
+        print filter_one_line(line, left)
         line = reader.readline();           
     reader.close()    
 
 
 
 
-filtering(sys.argv[1])
+#filtering(sys.argv[1])

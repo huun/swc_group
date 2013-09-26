@@ -46,4 +46,4 @@ print dictio
 
 
 
-filtering(sys.argv[1])
+#filtering(sys.argv[1])
