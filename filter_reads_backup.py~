@@ -42,7 +42,7 @@ def filtering(input_file) :
             dictio[idd:id_seq.rstrip('\n')]
         line = reader.readline();           
     reader.close()    
-
+print dictio
 
 
 

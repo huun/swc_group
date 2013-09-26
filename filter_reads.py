@@ -9,7 +9,7 @@ import sys
 		#if number of bases to the left(right) of the coordinates is more than $THRESHOLD
 			#print line (coordinates stripped out!)
 
-
+  
 def filter_one_line(line) :
     coord,id_seq = line.split(':', 1)
     splits = id_seq.split('\t')
