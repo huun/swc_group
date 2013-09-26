@@ -1,5 +1,5 @@
 
-#all: $(patsubst %.fasta, %.png, $(wildcard *.fasta))
+all: $(patsubst %.fastq, %_filtered.fastq, $(wildcard *.fastq))
 
 clean:
 	rm -f *.fastqmerged	*_filtered.fastq *.filteredreads
