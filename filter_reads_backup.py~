@@ -10,25 +10,6 @@ import sys
 			#print line (coordinates stripped out!)
 
 
-def filter_one_line(line) :
-    coord,id_seq = line.split(':', 1)
-    splits = id_seq.split('\t')
-    idd=splits[0]
-    seq=splits[1]
-    pos_id_len = len(idd)
-    start,end = coord.split('-')
-    new_start = int(start)-pos_id_len
-    new_stop = int(end)-pos_id_len
-    #IF input file left, then check if >= 30 from new_end to end of sequence print line
-    #ELSE (input right) if new_start >=30 print line
-    if left:
-        sub_len=len(seq)-new_stop+1
-    else:
-        sub_len=new_start
-    if sub_len >= 30:
-        return id_seq.rstrip('\n')
-    return ''
-
 def filtering(input_file) :
     '''Function takes a modified fastq file (each record on one line, line prepended with the coordinates of a sequence matched by tre-agrep). 
     If input file name contains "_left" only reads with at least 30 bases to the right of the matched position are printed to stdout
@@ -41,8 +22,24 @@ def filtering(input_file) :
         exit(1)
     line = reader.readline();
     left=input_file.__contains__('_left.')
+    dictio = {}
     while line != '' :
-        print filter_one_line(line)
+        coord,id_seq = line.split(':', 1)
+        splits = id_seq.split('\t')
+        idd=splits[0]
+        seq=splits[1]
+        pos_id_len = len(idd)
+        start,end = coord.split('-')
+        new_start = int(start)-pos_id_len
+        new_stop = int(end)-pos_id_len
+        #IF input file left, then check if >= 30 from new_end to end of sequence print line
+        #ELSE (input right) if new_start >=30 print line
+        if left:
+            sub_len=len(seq)-new_stop+1
+        else:
+            sub_len=new_start
+        if sub_len >= 30:
+            dictio[idd:id_seq.rstrip('\n')]
         line = reader.readline();           
     reader.close()    
 
