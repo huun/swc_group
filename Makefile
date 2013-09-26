@@ -5,17 +5,19 @@ clean:
 	rm -f *.fastqmerged	*_filtered.fastq *.filteredreads
 
 ###python check fastq file format 
-%.filtered: %.fastq
-	cat $< | paste - - - - | tre-agrep --show-position GGGAGGCCG{#1} > $@_left.out
-	cat $< | paste - - - - | tre-agrep --show-position CCTCCCATA{#1} > $@_right.out
+%_left.out: %.fastq
+	cat $< | paste - - - - | tre-agrep --show-position GGGAGGCCG{#1} > $@
+%_right.out: %.fastq
+	cat $< | paste - - - - | tre-agrep --show-position CCTCCCATA{#1} > $@
 
 ##python to extract sequence left and right with a minimum length otherwise discard
-%.filteredreads: %.out
+%_left.filteredreads: %_left.out
 	python filter_reads_wrapper.py $< > $@
-
+%_right.filteredreads: %_right.out
+	python filter_reads_wrapper.py $< > $@
 ## TODO: trim instead of filtering
 
-%.new.fastq: %.filteredreads
+%.new: %_left.filteredreads %_right.filteredreads
 	cat $< | tr '\t' '\n' > $@
 
 test:
