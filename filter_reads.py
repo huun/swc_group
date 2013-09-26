@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+import sys
+
+
+
+#for each line (1 record per line)
+	#LINE: 186-195:@SRR073560.16987 HWI-EAS406:7:1:807:285 length=152	CGGCTCTTTAAATATACGATTTACTCACATGGTTCTCACATGGTTACGGTGGCAAATGTAAAAATGCCCTGACTTCTCGCATTCGCTTTGCACTCCTCGGCTTCTGCGCCTAATACTGGCTATCTTCCACGGGTCGAGCGGATGCGGGGAGGCCGGGGCTTTT	+SRR073560.16987 HWI-EAS406:7:1:807:285 length=152	BABBBBABBCB@A??;AB;=@@A<?A@@?@@@8>@@@=7;?957=>@7>96>>5;@B@47-05;9<766467####A>A@1@BBBABABAB<A>7@7@A=7)6-(6<<############################################
+	#coordinates=186-195
+	#to_out=@SRR073560.16987 HWI-EAS406:7:1:807:285 length=152	CGGCTCTTTAAATATACGATTTACTCACATGGTTACGGTGGCAAATGTAAAAATGCCCTGACTTCTCGCATTCGCTTTGCACTCCTCGGCTTCTGCGCCTAATACTGGCTATCTTCCACGGGTCGAGCGGATGCGGGGAGGCCGGGGCTTTT	+SRR073560.16987 HWI-EAS406:7:1:807:285 length=152	BABBBBABBCB@A??;AB;=@@A<?A@@?@@@8>@@@=7;?957=>@7>96>>5;@B@47-05;9<766467####A>A@1@BBBABABAB<A>7@7@A=7)6-(6<<############################################
+	#read, strip and store int coordinates at the head of the line
+	#based on 'left' or 'right'in the input file name
+		#if number of bases to the left(right) of the coordinates is more than $THRESHOLD
+			#print line (coordinates stripped out!)
+
+
+
+def filtering(input_file) :
+    reader=open(input_file, 'r')
+    line = reader.readline();
+    left=input_file.__contains__('_left.')
+    while line != '' :
+        #line=line.replace('\t','')
+        coord,id_seq = line.split(':', 1)
+        #id_seq = line.split(':', 1)[-1]
+        #id,seq= id_seq.split('\t',1)
+        splits = id_seq.split('\t')
+        idd=splits[0]
+        seq=splits[1]
+        #seq= id_seq.split('\t')[-1]
+        pos_id_len = len(idd)
+        start,end = coord.split('-')
+        new_start = int(start)-pos_id_len
+        new_stop = int(end)-pos_id_len
+        #IF input file left, then check if > 30 from new_end to end of sequence print line
+        #ELSE (input right) if new_start >=30 print line
+        if left:
+            sub_len=len(seq)-new_stop+1
+        else:
+            sub_len=new_start
+        if sub_len > 30:
+            #print "sub_len={}, new_stop= {}, seq={}".format(sub_len, new_stop, seq)
+            print id_seq
+        line = reader.readline();           
+    reader.close()    
+
+
+filtering(sys.argv[1])
